@@ -1,8 +1,8 @@
 import React, { useEffect, useState, useCallback } from "react";
 import { Button, notification } from "antd";
-import SinglePost from "./SinglePost";
-import UpdatePostModal from "./UpdatePostModal";
-import AddPostModal from "./AddPostModal";
+import SinglePost from "../SinglePost/SinglePost";
+import UpdatePostModal from "../UpdatePostModal/UpdatePostModal";
+import AddPostModal from "../AddPostModal/AddPostModal";
 import styles from "./Dashboard.module.css";
 
 interface Post {
@@ -15,7 +15,7 @@ interface Post {
 }
 
 const Dashboard: React.FC = () => {
-  const user = "ram";
+  const user = "Guest";
 
   const [posts, setPosts] = useState<Post[]>([]);
   const [toDoPosts, setToDoPosts] = useState<Post[]>([]);

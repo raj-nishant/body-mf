@@ -1,10 +1,30 @@
 import React, { useState } from "react";
 import { Modal, Button, Form, Input, DatePicker, Select } from "antd";
 import { v4 as uuidv4 } from "uuid";
-import moment from "moment";
+import moment, { Moment } from "moment";
 
-const AddPostModal = ({ visible, onClose, onAddPost }) => {
-  const [newPost, setNewPost] = useState({
+interface AddPostModalProps {
+  visible: boolean;
+  onClose: () => void;
+  onAddPost: (post: Post) => void;
+}
+
+interface Post {
+  id: string;
+  title: string;
+  description: string;
+  startDate: string;
+  endDate: string;
+  frequency: string;
+  url: string; // URL field
+}
+
+const AddPostModal: React.FC<AddPostModalProps> = ({
+  visible,
+  onClose,
+  onAddPost,
+}) => {
+  const [newPost, setNewPost] = useState<Post>({
     id: uuidv4(),
     title: "",
     description: "",
@@ -16,19 +36,21 @@ const AddPostModal = ({ visible, onClose, onAddPost }) => {
 
   const { title, description, startDate, endDate, frequency, url } = newPost;
 
-  const onChangeNewPostForm = (event) => {
+  const onChangeNewPostForm = (
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     setNewPost({ ...newPost, [event.target.name]: event.target.value });
   };
 
-  const onChangeStartDate = (date, dateString) => {
+  const onChangeStartDate = (date: Moment | null, dateString: string) => {
     setNewPost({ ...newPost, startDate: dateString });
   };
 
-  const onChangeEndDate = (date, dateString) => {
+  const onChangeEndDate = (date: Moment | null, dateString: string) => {
     setNewPost({ ...newPost, endDate: dateString });
   };
 
-  const onChangeFrequency = (value) => {
+  const onChangeFrequency = (value: string) => {
     setNewPost({ ...newPost, frequency: value });
   };
 
