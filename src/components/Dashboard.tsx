@@ -1,9 +1,9 @@
 import React, { useEffect, useState, useCallback } from "react";
 import { Button, notification } from "antd";
-import addIcon from "../assets/plus-circle-fill.svg";
 import SinglePost from "./SinglePost";
 import UpdatePostModal from "./UpdatePostModal";
 import AddPostModal from "./AddPostModal";
+import styles from "./Dashboard.module.css";
 
 interface Post {
   id: string;
@@ -15,7 +15,7 @@ interface Post {
 }
 
 const Dashboard: React.FC = () => {
-  const user = localStorage.getItem("username") || "User";
+  const user = "ram";
 
   const [posts, setPosts] = useState<Post[]>([]);
   const [toDoPosts, setToDoPosts] = useState<Post[]>([]);
@@ -117,21 +117,28 @@ const Dashboard: React.FC = () => {
   };
 
   return (
-    <div className="p-4">
+    <div className={styles.dashboardContainer}>
       {posts.length > 0 && earliestDeadline && (
         <div
-          className={`max-w-xl mx-auto mb-4 p-6 bg-white shadow-md rounded ${
-            deadlineNotiOpen ? "" : "hidden"
+          className={`${styles.notificationCard} ${
+            deadlineNotiOpen ? "" : styles.hidden
           }`}
         >
-          <h1 className="text-2xl font-bold mb-2">Hi {user}</h1>
+          <h1 className={styles.notificationTitle}>Hi {user}</h1>
           <div className="mb-4">
-            <h2 className="text-xl font-semibold">Deadline Notification</h2>
-            <p className="text-gray-700">
+            <h2 className={styles.notificationSubTitle}>
+              Deadline Notification
+            </h2>
+            <p className={styles.notificationText}>
               The deadline for task{" "}
-              <span className="font-bold">{earliestDeadline.title}</span> is{" "}
-              <span className="font-bold">{earliestDeadline.deadline}</span>,
-              which is the earliest deadline.
+              <span className={styles.notificationTextBold}>
+                {earliestDeadline.title}
+              </span>{" "}
+              is{" "}
+              <span className={styles.notificationTextBold}>
+                {earliestDeadline.deadline}
+              </span>
+              , which is the earliest deadline.
             </p>
           </div>
           <Button type="primary" onClick={() => setDeadlineNotiOpen(false)}>
@@ -139,10 +146,10 @@ const Dashboard: React.FC = () => {
           </Button>
         </div>
       )}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <div>
-          <h3 className="text-center text-xl font-bold mb-4">TO DO</h3>
-          <div className="space-y-4">
+      <div className={styles.gridContainer}>
+        <div className={styles.column}>
+          <h3 className={styles.columnTitle}>TO DO</h3>
+          <div className={styles.columnContent}>
             {toDoPosts.map((post) => (
               <SinglePost
                 key={post.id}
@@ -153,9 +160,9 @@ const Dashboard: React.FC = () => {
             ))}
           </div>
         </div>
-        <div>
-          <h3 className="text-center text-xl font-bold mb-4">IN PROGRESS</h3>
-          <div className="space-y-4">
+        <div className={styles.column}>
+          <h3 className={styles.columnTitle}>IN PROGRESS</h3>
+          <div className={styles.columnContent}>
             {inProgressPosts.map((post) => (
               <SinglePost
                 key={post.id}
@@ -166,9 +173,9 @@ const Dashboard: React.FC = () => {
             ))}
           </div>
         </div>
-        <div>
-          <h3 className="text-center text-xl font-bold mb-4">DONE</h3>
-          <div className="space-y-4">
+        <div className={styles.column}>
+          <h3 className={styles.columnTitle}>DONE</h3>
+          <div className={styles.columnContent}>
             {donePosts.map((post) => (
               <SinglePost
                 key={post.id}
@@ -182,8 +189,7 @@ const Dashboard: React.FC = () => {
       </div>
       <Button
         type="primary"
-        icon={<img src={addIcon} alt="Add" />}
-        className="fixed bottom-4 right-4 rounded-full"
+        className={styles.addButton}
         onClick={() => setShowAddPostModal(true)}
       >
         Add Post

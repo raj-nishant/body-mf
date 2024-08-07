@@ -11,9 +11,11 @@
   "dependencies": {
     "@module-federation/nextjs-mf": "^6.0.7",
     "antd": "^5.20.0",
+    "moment": "^2.30.1",
     "next": "13.1.6",
     "react": "^18",
-    "react-dom": "^18"
+    "react-dom": "^18",
+    "uuid": "^10.0.0"
   },
   "devDependencies": {
     "@types/node": "^20",

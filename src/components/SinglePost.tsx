@@ -5,33 +5,35 @@ import {
   EditOutlined,
   PlayCircleOutlined,
 } from "@ant-design/icons";
+import styles from "./SinglePost.module.css";
 
 const SinglePost = ({ post, onEdit, onDelete }) => {
   const statusColor =
     post.status === "DONE"
-      ? "green"
+      ? styles.statusBadgeDone
       : post.status === "IN PROGRESS"
-      ? "yellow"
-      : "red";
+      ? styles.statusBadgeInProgress
+      : styles.statusBadge;
+
   return (
     <Card
-      className="shadow-lg border mb-4"
+      className={styles.card}
       bordered={false}
       title={
-        <div className="flex justify-between items-center">
+        <div className={styles.cardTitle}>
           <span>{post.title}</span>
           <Badge color={statusColor} text={post.status} />
         </div>
       }
       extra={
-        <div className="flex space-x-2">
+        <div className={styles.extraButtons}>
           <Button type="text" icon={<EditOutlined />} onClick={onEdit} />
           <Button type="text" icon={<DeleteOutlined />} onClick={onDelete} />
         </div>
       }
     >
-      <h4 className="font-semibold text-xl">{post.title}</h4>
-      <p className="text-gray-700 mb-2">{post.description}</p>
+      <h4 className={styles.title}>{post.title}</h4>
+      <p className={styles.description}>{post.description}</p>
       {post.url && (
         <Button
           type="link"
@@ -39,12 +41,12 @@ const SinglePost = ({ post, onEdit, onDelete }) => {
           target="_blank"
           rel="noopener noreferrer"
           icon={<PlayCircleOutlined />}
-          className="text-blue-500"
+          className={styles.linkButton}
         >
           View Tutorial
         </Button>
       )}
-      <p className="mt-2 text-gray-600">Deadline: {post.deadline}</p>
+      <p className={styles.deadline}>Deadline: {post.deadline}</p>
     </Card>
   );
 };
